@@ -13,6 +13,8 @@ namespace Player
 
         public override void Enter()
         {
+            ToggleCrouchCollider(true);
+            
             player.velocity.y = 0f;
 
             player.animator.CrossFadeInFixedTime(_crouchBlendTreeHash, CrossFadeDuration);
@@ -36,6 +38,7 @@ namespace Player
 
             if (player.inputReader.crouchCancelled)
             {
+                ToggleCrouchCollider(false);
                 player.SwitchState(new PlayerMoveState(player));
             }
         }

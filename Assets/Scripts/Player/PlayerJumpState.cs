@@ -18,6 +18,8 @@ namespace Player
             player.velocity = new Vector3(player.velocity.x, force, player.velocity.z);
 
             player.animator.CrossFadeInFixedTime(_jumpBlendTreeHash, CrossFadeDuration);
+            
+            player.inputReader.OnAttackPerformed += SwitchToAttackState;
         }
 
         public override void Tick()
@@ -38,6 +40,12 @@ namespace Player
             player.animator.SetFloat(_jumpBlendHash, sprint ? 1f : 0f, AnimationDampTime, Time.deltaTime);
         }
 
-        public override void Exit() { }
+        public override void Exit()
+        {
+            player.inputReader.OnAttackPerformed -= SwitchToAttackState;
+        }
+        
+        private void SwitchToAttackState() => player.SwitchState(new PlayerAttackState(player));
+
     }
 }

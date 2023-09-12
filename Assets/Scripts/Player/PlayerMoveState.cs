@@ -24,6 +24,12 @@ namespace Player
 
         public override void Tick()
         {
+            ApplyGravity();
+            
+            var t = player.transform.position;
+            t.x = Mathf.Lerp(t.x, 0, 1f);
+            player.transform.position = t;
+            
             CalculateMoveDirection();
             FaceMoveDirection();
             
@@ -54,6 +60,6 @@ namespace Player
 
         private void SwitchToJumpState() => player.SwitchState(new PlayerJumpState(player));
         private void SwitchToCrouchState() => player.SwitchState(new PlayerCrouchState(player));
-        private void SwitchToAttackState() => player.SwitchState(new PlayerCrouchState(player));
+        private void SwitchToAttackState() => player.SwitchState(new PlayerAttackState(player));
     }
 }

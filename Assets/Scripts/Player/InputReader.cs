@@ -11,6 +11,7 @@ namespace Player
 
         public bool isSprinting;
         public bool crouchCancelled;
+        public bool isAttacking;
         
         public Action OnJumpPerformed;
         public Action OnCrouchPerformed;
@@ -68,7 +69,10 @@ namespace Player
         {
             if(!context.performed) return;
             
+            if(isAttacking) return;
+            
             OnAttackPerformed?.Invoke();
+            isAttacking = true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player
 {
@@ -8,8 +9,12 @@ namespace Player
     public class PlayerStateMachine : StateMachine
     {
         public Vector3 velocity;
+        public GameObject swordEquipped, swordSheathed;
+
+        public CharacterColliderSettings normalSettings, crouchedSettings;
+        
         public float movementSpeed { get; private set; } = 20f;
-        public float sprintMultiplier { get; private set; } = 1.5f;
+        public float sprintMultiplier { get; private set; } = 2.5f;
         public float jumpForce { get; private set; } = 15f;
         public float sprintJumpMultiplier { get; private set; } = 1f;
         public float gravityMultiplier { get; private set; } = 5f;
@@ -29,5 +34,12 @@ namespace Player
 
             SwitchState(new PlayerMoveState(this));
         }
+    }
+
+    [Serializable]
+    public struct CharacterColliderSettings
+    {
+        public float height;
+        public Vector3 center;
     }
 }

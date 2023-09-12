@@ -46,5 +46,26 @@ namespace Player
         {
             player.controller.Move(player.velocity * (sprintMultiplier * Time.deltaTime));
         }
+
+        protected void ToggleCrouchCollider(bool crouching)
+        {
+            switch (crouching)
+            {
+                case true:
+                    player.controller.height = player.crouchedSettings.height;
+                    player.controller.center = player.crouchedSettings.center;
+                    break;
+                default:
+                    player.controller.height = player.normalSettings.height;
+                    player.controller.center = player.normalSettings.center;
+                    break;
+            }
+        }
+
+        protected void ToggleSword(bool equipped)
+        {
+            player.swordEquipped.SetActive(equipped);
+            player.swordSheathed.SetActive(!equipped);
+        }
     }
 }
